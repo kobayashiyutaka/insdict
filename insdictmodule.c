@@ -1,11 +1,11 @@
 #include <Python.h>
-#include "../cpython/Objects/dict-common.h"
-//#include "dict-common.h"
+#include "dict-common.h"
+#define USABLE_FRACTION(n) (((n) << 1)/3)
 
 static PyObject *method_insdict(PyObject *self,PyObject *args){
   int i;
   Py_ssize_t ma_used;
-  uint8_t index_tbl_size;
+  Py_ssize_t index_tbl_size;
   Py_ssize_t dk_nentries;
   PyDictObject *d;
   PyDictKeysObject *ma_keys;
@@ -19,19 +19,20 @@ static PyObject *method_insdict(PyObject *self,PyObject *args){
   ma_keys = d->ma_keys;
   ma_values = d->ma_values;
 
-  index_tbl_size = ma_keys->dk_log2_size;
+  index_tbl_size = ma_keys->dk_size;
   dk_nentries = ma_keys->dk_nentries;
 
   printf("---- Internal state of dictionary ----\n");
-  printf("Number of items: \t%lld\n",ma_used);
-  printf("Size of index table: \t%d\n",index_tbl_size);
-  printf("Index table: ");
+  printf("Number of items: \t%lld\n",(long long)ma_used);
+  printf("Size of index array: \t%lld\n",(long long)index_tbl_size);
+  printf("Size of entray table: \t%lld\n",(long long) USABLE_FRACTION(index_tbl_size));
+  printf("Index array: ");
   for(i=0;i<index_tbl_size;i++){
-    printf("%d ",d->ma_keys->dk_indices[i]);
+    printf("%lld ",(long long)d->ma_keys->dk_indices[i]);
   }
   printf("\n");
-  printf("dk_nentries: %I64d\n",dk_nentries);
-
+  printf("Number of used entries: %lld\n",(long long)dk_nentries);
+  
   return Py_None;
 }
 
