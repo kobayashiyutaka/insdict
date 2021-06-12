@@ -38,7 +38,7 @@ static PyObject *method_insdict(PyObject *self,PyObject *args){
   
   /* Check if the argument is a dictionary */
   if(!PyDict_Check(d)){
-    PyErr_SetString(PyExc_TypeError,"The argument must be a dictionary");
+    PyErr_SetString(PyExc_TypeError,"argument must be a dictionary");
     return NULL;
   }
   
@@ -75,9 +75,12 @@ static PyObject *method_insdict(PyObject *self,PyObject *args){
   printf("Number of usable entries: %llu\n",(unsigned long long)dk_usable);
 
   if(dict_type==0){
-    printf("|slot|hash|masked|*key|*value|\n");
+    printf("Entry table:\n");
+    printf("|----|----------------|------|----------------|----------------|\n");
+    printf("|slot|hash(key) 8bytes|masked|     &key 8bytes|   &value 8bytes|\n");
+    printf("|----|----------------|------|----------------|----------------|\n");
     for(i=0;i<USABLE_FRACTION(index_tbl_size);i++){
-      printf("|%d|%16llx|%lld|%p|%p|\n",i,(long long)dk_entries[i].me_hash,
+      printf("|%4d|%16llx|%6lld|%p|%p|\n",i,(long long)dk_entries[i].me_hash,
 	     (long long)(dk_entries[i].me_hash & (index_tbl_size-1)),
 	     dk_entries[i].me_key,
 	     dk_entries[i].me_value);
@@ -89,7 +92,8 @@ static PyObject *method_insdict(PyObject *self,PyObject *args){
 
 static PyMethodDef InsdictMethods[] =
   {
-   {"insdict",method_insdict,METH_VARARGS,"Method for inspecting dictionaries"},
+   {"insdict",method_insdict,METH_VARARGS,\
+   "Method for inspecting the internal state of a dictionary"},
    {NULL,NULL,0,NULL}
   };
 
@@ -97,7 +101,7 @@ static struct PyModuleDef insdictmodule =
   {
    PyModuleDef_HEAD_INIT,
    "insdict",
-   "Module for inspecting dictionaries",
+   "Module for inspecting the internal state of a dictionary",
    -1,
    InsdictMethods
   };
