@@ -25,7 +25,7 @@ static PyObject *method_insdict(PyObject *self,PyObject *args){
   printf("---- Internal state of dictionary ----\n");
   printf("Number of items: \t%lld\n",(long long)ma_used);
   printf("Size of index array: \t%lld\n",(long long)index_tbl_size);
-  printf("Size of entray table: \t%lld\n",(long long) USABLE_FRACTION(index_tbl_size));
+  printf("Size of entry table: \t%lld\n",(long long) USABLE_FRACTION(index_tbl_size));
   printf("Index array: ");
   for(i=0;i<index_tbl_size;i++){
     printf("%lld ",(long long)d->ma_keys->dk_indices[i]);
