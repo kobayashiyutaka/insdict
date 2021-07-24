@@ -1,4 +1,4 @@
-# insdict
+# insdict 0.1.0
 
 ## About
 
@@ -6,7 +6,7 @@ This is a module to explore the internal structure of a dictionary. I'm developi
 
 ## Requirement
 
-- CPython (ver >= 3.8)
+- CPython (ver >= 3.8 recommended)
 - The same C compiler as used to compile your CPython
 
 For Windows, you need to install Microsoft Visual Studio, which is available for free. For Linux, GCC is required.
@@ -32,7 +32,7 @@ python -m pip uninstall insdict
 Module `insdict` includes a single function whose name is again `insdict`. The following is an example code which prints the internal structure of a dictionary with three entries:
 
 ```python
-from insdict import insdict
+from insdict import *
 x = {'foo':123,'bar':456,'baz':789}
 insdict(x)
 ```

@@ -2,7 +2,7 @@ from setuptools import setup, Extension
 
 def main():
     setup(name="insdict",
-          version="1.0.0",
+          version="0.1.0",
           description="Module: Inspect dict.",
           author="Yutaka Kobayashi",
           author_email="kobayashi.yutaka@kochi-tech.ac.jp",
