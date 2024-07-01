@@ -6,7 +6,7 @@ This is a module to explore the internal structure of a dictionary. I'm developi
 
 ## Requirement
 
-- CPython (ver >= 3.8 recommended)
+- CPython (3.8 <= ver <= 3.10 recommended, does not work for 3.11)
 - The same C compiler as used to compile your CPython
 
 For Windows, you need to install Microsoft Visual Studio, which is available for free. For Linux, GCC is required.
